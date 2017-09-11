@@ -1,5 +1,5 @@
-Uurloon = int(input("Wat is je uurloon?: "))
-Werkuren = int(input("Hoeveel uur heb je gewerkt: "))
+Uurloon = float(input("Wat is je uurloon?: "))
+Werkuren = float(input("Hoeveel uur heb je gewerkt: "))
 
 berekening = Werkuren*Uurloon
 
