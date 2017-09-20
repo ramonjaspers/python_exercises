@@ -7,30 +7,27 @@ kilometerDrempelPrijs = 15
 jongEnOudWeekendKorting = 0.65
 jongEnOudweekKorting = 0.7
 weekendKorting = 0.60
-weekendRit = bool
-
-if weekDeel <= 4:
-    weekendRit = False
-else:
-    weekendRit = True
+jongeKortingsLeeftijd = 12
+oudeKortingsLeeftijd = 65
+isHetNuWeekend = weekDeel > 4
 
 def standaardprijs(afstandKM):
+    totaalprijs = 0
     if afstandKM < 50:
         totaalprijs = (afstandKM * basisAfstandKilometerTarief)
     elif afstandKM >= 50:
         totaalprijs = kilometerDrempelPrijs + (afstandKM * grootteAfstandKilometerTarief)
-    elif afstandKM <= 0:
-        totaalprijs = 0
     return totaalprijs
 
 
-def ritprijs(leeftijd, weekendrit, afstandKM):
+def ritprijs(leeftijd, isHetEenRitInHetWeekend, afstandKM):
     totaalprijs = standaardprijs(afstandKM)
-    if leeftijd < 12 or leeftijd >= 65 and weekendrit == True:
+    heeftRechtOpLeeftijdKorting = leeftijd < jongeKortingsLeeftijd or leeftijd >= oudeKortingsLeeftijd
+    if heeftRechtOpLeeftijdKorting and isHetEenRitInHetWeekend:
         eindprijs = totaalprijs * jongEnOudWeekendKorting
-    elif leeftijd < 12 or leeftijd >= 65 and weekendrit == False:
+    elif heeftRechtOpLeeftijdKorting and not isHetEenRitInHetWeekend:
         eindprijs = totaalprijs * jongEnOudweekKorting
-    elif weekendrit == True:
+    elif isHetEenRitInHetWeekend:
         eindprijs = totaalprijs * weekendKorting
     else:
         eindprijs = totaalprijs
@@ -39,13 +36,11 @@ def ritprijs(leeftijd, weekendrit, afstandKM):
 
 # kilometers = float(input("Geef het aantal kilometers op: "))
 # leeftijd = float(input("Geef je leeftijd op: "))
-#
-# print (ritprijs(leeftijd, weekendRit, kilometers))
-
+# print(ritprijs(leeftijd,isHetNuWeekend, kilometers))
 
 leeftijden = [11, 12, 64, 65]
 afstanden = [20, 40, 60]
-
 for leeftijd in leeftijden:
     for afstand in afstanden:
+        print(str(leeftijd) + ' Jaar oud | ' + str(afstand) + 'KM | Weekdagen: ' + str(ritprijs(leeftijd, False, afstand)) + ' euro')
         print(str(leeftijd) + ' Jaar oud | ' + str(afstand) + 'KM | Weekend: ' + str(ritprijs(leeftijd, True, afstand)) + ' euro')
