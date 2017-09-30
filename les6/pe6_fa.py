@@ -1,8 +1,7 @@
-import time
-
 kluizen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 aantalkluizen = int((len(kluizen)))
 aantalBezetteKluizen = sum(1 for line in open('kluizen.txt'))
+menuKeuze = 0
 
 
 def toon_aantal_kluizen_vrij():
@@ -13,8 +12,8 @@ def nieuwe_kluis():
     with open('kluizen.txt', 'r+') as f:
         for line in f:
             line = line.split(';')
-            kluizen.remove(int(line[0]))
-        if kluizen:
+            kluizen.remove(int(line[0])) # herontdekken
+        if kluizen:# betere naamgeving
             kluisNummer = kluizen[0]
             kluisCode = input("Kies uw code:")
             statusBericht = "Uw kluis is " + str(kluisNummer)
@@ -22,23 +21,21 @@ def nieuwe_kluis():
             f.close()
         else:
             statusBericht = ("Er zijn geen momenteel geen kluizen beschikbaar.")
+            #sluit file
         return statusBericht
-        time.sleep(1)
 
 
 def kluis_openen(opgegevenNummer, opgegevenCode):
     kluisCombinatie = str(opgegevenNummer) + ';' + str(opgegevenCode)
     with open("kluizen.txt") as f:
         for line in f:
-            line = line.rstrip()  # remove '\n' at end of line
+            line = line.rstrip()
             if kluisCombinatie == line:
-                # print(line)
                 print("kluis is geopend")
-                time.sleep(1)
+                #sluit file
     return
 
 
-menuKeuze = 0
 while menuKeuze != 4:
     print('1: Ik wil weten hoeveel kluizen nog vrij zijn \n2: Ik wil een nieuwe kluis \n3: Ik wil even iets uit mijn kluis halen \n4: Afsluiten')
     menuKeuze = input("Maak uw keuze:")
@@ -59,7 +56,6 @@ while menuKeuze != 4:
         kluis_openen(opgegevenNummer, opgegevenCode)
     elif menuKeuze == 4:
         print("Programma wordt afgesloten")
-        time.sleep(1)
     else:
         print('Ongeldige optie, kies graag een nummer uit het menu')
 

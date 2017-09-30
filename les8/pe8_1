@@ -1,0 +1,11 @@
+bruin = set(["best", "Beukenlaan", "Helmond't Hout", "Helmond", "Helmond Brouwhuis", "Deurne"])
+groen = set(["best", "Beukenlaan", "Geldorp", "Heeze", "Weert"])
+
+#overeenkomst
+print(groen.intersection(bruin))
+#Verschil tegenover groen
+print(bruin.symmetric_difference(groen))
+#Cominatie set
+print(bruin.union(groen))
+
+
