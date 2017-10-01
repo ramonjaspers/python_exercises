@@ -1,0 +1,7 @@
+Geordend      |  Muteerbaar   |   Iterable    |    Dubbele waarden toegestaan
+tuple =                              x                       x
+Dictionairy =        x               x
+Set =                x                                       
+List =               x               x                       x
+
+
