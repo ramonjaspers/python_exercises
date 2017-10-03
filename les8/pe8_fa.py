@@ -6,11 +6,11 @@ stations = ['Schagen', 'Heerhugowaard', 'Alkmaar', 'Heerhugowaard', 'Castricum',
 def inlezen_beginstation(stationslijst):
     beginstation = input("Voer het station van vertrek in:")
 
-    if beginstation in stations:
+    if beginstation in stationslijst:
         return beginstation
     else:
         print("Het opgegeven station bestaat niet.")
-        return inlezen_beginstation(stations)
+        return inlezen_beginstation(stationslijst)
 
 
 def inlezen_eindstation(stationslijst, beginstation):
@@ -21,6 +21,11 @@ def inlezen_eindstation(stationslijst, beginstation):
         eindstationindex = stationslijst.index(eindstation)
         if eindstationindex > beginstationindex:
             return eindstation
+        elif beginstationindex == eindstationindex:   # HIER MOET IK WEER TERUG GAAN NAAR inlezen_beginstation m.b.t. Maastricht x2
+            print("Deze trein komt niet in " + eindstation + ".")
+            eindstation = input("Voer het eind station in:")
+            beginstation = inlezen_beginstation(stationslijst)
+
     else:
         print("Deze trein komt niet in " + eindstation + ".")
         return inlezen_eindstation(stationslijst, beginstation)
@@ -43,5 +48,6 @@ def omroepen_reis(stationslijst, beginstation, eindstation):
 
 beginstationInput = inlezen_beginstation(stations)
 eindstationInput = inlezen_eindstation(stations, beginstationInput)
+
 
 omroepen_reis(stations, beginstationInput, eindstationInput)
