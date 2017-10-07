@@ -2,31 +2,30 @@ stations = ['Schagen', 'Heerhugowaard', 'Alkmaar', 'Heerhugowaard', 'Castricum',
             'Amsterdam Centraal', 'Amsterdam Amstel', '\'s-Hertogenbosch', 'Utrecht Centraal', 'Eindhoven', 'Weert,',
             'Roermond', 'Sittard', 'Maastricht']
 
+beginstationInput = ""
+eindstationInput = ""
 
 def inlezen_beginstation(stationslijst):
     beginstation = input("Voer het station van vertrek in:")
     if beginstation in stationslijst:
+        while beginstation == "Maastricht":
+            print("U kunt niet vanaf dit station vertrekken")
+            beginstation = input("Voer het station van vertrek in:")
         return beginstation
     else:
         print("Het opgegeven station bestaat niet.")
         inlezen_beginstation(stationslijst)
 
-
 def inlezen_eindstation(stationslijst, beginstation):
     eindstation = input("Voer het eind station in:")
     beginstationindex = stationslijst.index(beginstation)
-
     if eindstation in stationslijst:
         eindstationindex = stationslijst.index(eindstation)
-        if eindstationindex > beginstationindex:
-            return eindstation
-        elif beginstation == eindstation:
+        while eindstationindex < beginstationindex:
             print("Deze trein komt niet in " + eindstation + ".")
-            print("Voer graag uw gegevens opnieuw in.")
-            return eindstation
-        else:
-            print("Deze trein komt niet in " + eindstation + ".")
-            inlezen_eindstation(stationslijst, beginstation)
+            eindstation = input("Voer het eind station in:")  # MAASTRICHT > MAASTRICHT > SCHAGEN > FOUTIEF
+            eindstationindex = stationslijst.index(eindstation)
+        return eindstation
     else:
         print(eindstation + "komt niet voor in dit traject.")
         inlezen_eindstation(stationslijst, beginstation)
@@ -47,8 +46,6 @@ def omroepen_reis(stationslijst, beginstation, eindstation):
     print("Jij stapt uit in: " + eindstation)
 
 
-beginstationInput = inlezen_beginstation(stations)
-eindstationInput = inlezen_eindstation(stations, beginstationInput)
 
 while beginstationInput == eindstationInput:
     beginstationInput = inlezen_beginstation(stations)
