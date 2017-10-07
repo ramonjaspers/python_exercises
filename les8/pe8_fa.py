@@ -5,12 +5,11 @@ stations = ['Schagen', 'Heerhugowaard', 'Alkmaar', 'Heerhugowaard', 'Castricum',
 
 def inlezen_beginstation(stationslijst):
     beginstation = input("Voer het station van vertrek in:")
-
     if beginstation in stationslijst:
         return beginstation
     else:
         print("Het opgegeven station bestaat niet.")
-        return inlezen_beginstation(stationslijst)
+        inlezen_beginstation(stationslijst)
 
 
 def inlezen_eindstation(stationslijst, beginstation):
@@ -21,14 +20,16 @@ def inlezen_eindstation(stationslijst, beginstation):
         eindstationindex = stationslijst.index(eindstation)
         if eindstationindex > beginstationindex:
             return eindstation
-        elif beginstationindex == eindstationindex:   # HIER MOET IK WEER TERUG GAAN NAAR inlezen_beginstation m.b.t. Maastricht x2
+        elif beginstation == eindstation:
             print("Deze trein komt niet in " + eindstation + ".")
-            eindstation = input("Voer het eind station in:")
-            beginstation = inlezen_beginstation(stationslijst)
-
+            print("Voer graag uw gegevens opnieuw in.")
+            return eindstation
+        else:
+            print("Deze trein komt niet in " + eindstation + ".")
+            inlezen_eindstation(stationslijst, beginstation)
     else:
-        print("Deze trein komt niet in " + eindstation + ".")
-        return inlezen_eindstation(stationslijst, beginstation)
+        print(eindstation + "komt niet voor in dit traject.")
+        inlezen_eindstation(stationslijst, beginstation)
 
 
 def omroepen_reis(stationslijst, beginstation, eindstation):
@@ -41,13 +42,15 @@ def omroepen_reis(stationslijst, beginstation, eindstation):
     print("De afstand bedraagt " + str(haltes) + " stations(s)")
     print("De prijs van het kaartje is " + str(kosten) + " euro\n")
     print("Jij stapt in de trein in: " + beginstation)
-    for stations in stationslijst[beginstationnummer:eindstationnummer - 1]:
-        print("-" + stations)
+    for station in stationslijst[beginstationnummer:eindstationnummer - 1]:
+        print("-" + station)
     print("Jij stapt uit in: " + eindstation)
 
 
 beginstationInput = inlezen_beginstation(stations)
 eindstationInput = inlezen_eindstation(stations, beginstationInput)
 
-
+while beginstationInput == eindstationInput:
+    beginstationInput = inlezen_beginstation(stations)
+    eindstationInput = inlezen_eindstation(stations, beginstationInput)
 omroepen_reis(stations, beginstationInput, eindstationInput)
