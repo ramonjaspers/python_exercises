@@ -46,7 +46,6 @@ def omroepen_reis(stationslijst, beginstation, eindstation):
     print("Jij stapt uit in: " + eindstation)
 
 
-
 while beginstationInput == eindstationInput:
     beginstationInput = inlezen_beginstation(stations)
     eindstationInput = inlezen_eindstation(stations, beginstationInput)
